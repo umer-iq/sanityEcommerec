@@ -10,33 +10,35 @@ import getStripe from '../lib/getStripe';
 
 const Cart = () => {
   const cartRef = useRef();
-  const{onRemove,toggleCartItemQuantity,totalPrice,totalQuantities,cartItems,setshowCart} = useStateContext();
-  const handleCheckout = async ( ) =>{
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
 
+  const handleCheckout = async () => {
     const stripe = await getStripe();
 
-    const response = await fetch('/api/stripe',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
+    const response = await fetch('/api/stripe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      body:JSON.stringify(cartItems),
+      body: JSON.stringify(cartItems),
     });
-     if(response.statusCode === 500) return;
-     const data = await response.json();
-     toast.loading('Redirecting...'); 
-     stripe.redirectToCheckout({sessionId:data.id});
-  
-    }
 
- 
+    if(response.statusCode === 500) return;
+    
+    const data = await response.json();
+
+    toast.loading('Redirecting...');
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  }
+
   return (
-   <div className="cart-wrapper" ref={cartRef}>
+    <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
         <button
         type="button"
         className="cart-heading"
-        onClick={() => setshowCart(false)}>
+        onClick={() => setShowCart(false)}>
           <AiOutlineLeft />
           <span className="heading">Your Cart</span>
           <span className="cart-num-items">({totalQuantities} items)</span>
@@ -49,7 +51,7 @@ const Cart = () => {
             <Link href="/">
               <button
                 type="button"
-                onClick={() => setshowCart(false)}
+                onClick={() => setShowCart(false)}
                 className="btn"
               >
                 Continue Shopping
@@ -57,6 +59,7 @@ const Cart = () => {
             </Link>
           </div>
         )}
+
         <div className="product-container">
           {cartItems.length >= 1 && cartItems.map((item) => (
             <div className="product" key={item._id}>
@@ -64,22 +67,22 @@ const Cart = () => {
               <div className="item-desc">
                 <div className="flex top">
                   <h5>{item.name}</h5>
-                  <h4> Rs {item.price}</h4>
+                  <h4>Rs{item.price}</h4>
                 </div>
                 <div className="flex bottom">
                   <div>
                   <p className="quantity-desc">
-                    <span className="minus" onClick={()=> toggleCartItemQuantity(item._id,'dec')} >
+                    <span className="minus" onClick={() => toggleCartItemQuanitity(item._id, 'dec') }>
                     <AiOutlineMinus />
                     </span>
                     <span className="num" onClick="">{item.quantity}</span>
-                    <span className="plus" onClick={()=> toggleCartItemQuantity(item._id,'inc')} ><AiOutlinePlus /></span>
+                    <span className="plus" onClick={() => toggleCartItemQuanitity(item._id, 'inc') }><AiOutlinePlus /></span>
                   </p>
                   </div>
                   <button
                     type="button"
                     className="remove-item"
-                    onClick={() =>onRemove(item)}
+                    onClick={() => onRemove(item)}
                   >
                     <TiDeleteOutline />
                   </button>
@@ -92,7 +95,7 @@ const Cart = () => {
           <div className="cart-bottom">
             <div className="total">
               <h3>Subtotal:</h3>
-              <h3>Rs {totalPrice}</h3>
+              <h3>Rs{totalPrice}</h3>
             </div>
             <div className="btn-container">
               <button type="button" className="btn" onClick={handleCheckout}>
