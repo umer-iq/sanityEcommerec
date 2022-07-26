@@ -7,7 +7,7 @@ const Footer = () => {
         <p>2022 Store.PK  All rights reserved</p>
         <p className='icons'>
             
-           <AiFillInstagram />
+           <a href='https://www.w3schools.com'><AiFillInstagram /></a>
             <AiOutlineTwitter/>
         </p>
     </div>
