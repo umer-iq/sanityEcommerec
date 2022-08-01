@@ -11,10 +11,9 @@ import { useStateContext } from '../context/StateContext'
     return (
       <div className="navbar-container">
         <p className="logo">
-          <Link href="/">SHOP ONLINE</Link>
+          <Link href="/">SHOP PK</Link>
         </p>
-        <p >Head phones</p>
-        <p>Portable Speakers</p>
+         <p >Portable Speakers</p>
         <p>Ear Headphones</p>
         <p>Headphones</p>
         <button type="button" className="cart-icon" onClick={() => setShowCart(true)}>
