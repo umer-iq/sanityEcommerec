@@ -13,7 +13,10 @@ import { useStateContext } from '../context/StateContext'
         <p className="logo">
           <Link href="/">SHOP ONLINE</Link>
         </p>
-  
+        <p >Head phones</p>
+        <p>Portable Speakers</p>
+        <p>Ear Headphones</p>
+        <p>Headphones</p>
         <button type="button" className="cart-icon" onClick={() => setShowCart(true)}>
           <AiOutlineShopping />
           <span className="cart-item-qty">{totalQuantities}</span>
